@@ -68,3 +68,20 @@ jobs:
 
       - name: Subir imagen
         run: docker push hunglespro/python-ci-cd:staging-${{ github.sha }}
+
+  deploy-staging:
+    if: github.ref == 'refs/heads/staging'
+    needs: docker-deploy-staging
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configurar kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.28.0'
+
+      - name: Aplicar manifests en Staging
+        run: |
+          kubectl apply -f k8s/staging/k8s-deployment.yml
+          kubectl apply -f k8s/staging/k8s-service.yml
