@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-ci-cd-deploy
+  labels:
+    app: python-ci-cd
+spec:
+  replicas: 2   # número de pods
+  selector:
+    matchLabels:
+      app: python-ci-cd
+  template:
+    metadata:
+      labels:
+        app: python-ci-cd
+    spec:
+      containers:
+        - name: python-ci-cd
+          image: hunglespro/python-ci-cd:55917814347d9e92212e7536fa9a1833e11a8a3a
+          ports:
+            - containerPort: 5000

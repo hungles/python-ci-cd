@@ -1,7 +1,7 @@
 # Usa una imagen base oficial de Python
 FROM python:3.11-slim
 
-# Establece el directorio de trabajo
+# Establece el directorio de trabajos
 WORKDIR /app
 
 # Copia los archivos de dependencias

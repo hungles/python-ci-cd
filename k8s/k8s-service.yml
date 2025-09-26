@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-ci-cd-service
+spec:
+  selector:
+    app: python-ci-cd
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: NodePort   # para acceder desde fuera de Minikube
