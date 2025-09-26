@@ -94,5 +94,11 @@ jobs:
 
       - name: Aplicar manifests
         run: |
-          kubectl apply -f k8s/staging/k8s-deployment.yaml
-          kubectl apply -f k8s/staging/k8s-service.yaml
+          kubectl apply -f k8s/staging/k8s-deployment.yml
+          kubectl apply -f k8s/staging/k8s-service.yml
+
+      - name: Ver pods
+        run: kubectl get pods
+
+      - name: Ver servicios
+        run: kubectl get services
