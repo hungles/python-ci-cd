@@ -81,7 +81,18 @@ jobs:
         with:
           version: 'v1.28.0'
 
-      - name: Aplicar manifests en Staging
+      - name: Instalar kind
         run: |
-          kubectl apply -f k8s/staging/k8s-deployment.yml
-          kubectl apply -f k8s/staging/k8s-service.yml
+            curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
+            chmod +x ./kind
+            sudo mv ./kind /usr/local/bin/kind
+            kind create cluster
+            kubectl get nodes
+        
+      - name: Validar cluster
+        run: kubectl get nodes
+
+      - name: Aplicar manifests
+        run: |
+          kubectl apply -f k8s/staging/k8s-deployment.yaml
+          kubectl apply -f k8s/staging/k8s-service.yaml
