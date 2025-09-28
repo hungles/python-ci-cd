@@ -88,22 +88,22 @@ jobs:
           chmod 600 $HOME/.kube/config
         
       - name: Validar cluster
-        run: kubectl get nodes
+        run: kubectl --kubeconfig=$HOME/.kube/config get nodes
 
       - name: Aplicar manifests
         run: |
-          kubectl apply -f k8s/staging/k8s-deployment.yml
-          kubectl apply -f k8s/staging/k8s-service.yml
+          kubectl --kubeconfig=$HOME/.kube/config apply -f k8s/staging/k8s-deployment.yml
+          kubectl --kubeconfig=$HOME/.kube/config apply -f k8s/staging/k8s-service.yml
       
       - name: Actualizar imagen en manifiesto
         run: |
-          kubectl set image deployment/python-ci-cd-deploy python-ci-cd=hunglespro/python-ci-cd:staging-${{ github.sha }}
+          kubectl --kubeconfig=$HOME/.kube/config set image deployment/python-ci-cd-deploy python-ci-cd=hunglespro/python-ci-cd:staging-${{ github.sha }}
 
       - name: Dormir para esperar despliegue
         run: sleep 60
 
       - name: Ver pods
-        run: kubectl get pods
+        run: kubectl --kubeconfig=$HOME/.kube/config get pods
 
       - name: Ver servicios
-        run: kubectl get services
+        run: kubectl --kubeconfig=$HOME/.kube/config get services
