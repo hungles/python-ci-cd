@@ -93,17 +93,17 @@ jobs:
       - name: Aplicar manifests
         run: |
           kubectl --kubeconfig=$HOME/.kube/config-remoto apply -f k8s/staging/k8s-deployment.yml
-          kubectl --kubeconfig=$HOME/.kube/config apply-remoto -f k8s/staging/k8s-service.yml
+          kubectl --kubeconfig=$HOME/.kube/config-remoto apply -f k8s/staging/k8s-service.yml
       
       - name: Actualizar imagen en manifiesto
         run: |
-          kubectl --kubeconfig=$HOME/.kube/config set image deployment/python-ci-cd-deploy python-ci-cd=hunglespro/python-ci-cd:staging-${{ github.sha }}
+          kubectl --kubeconfig=$HOME/.kube/config-remoto set image deployment/python-ci-cd-deploy python-ci-cd=hunglespro/python-ci-cd:staging-${{ github.sha }}
 
       - name: Dormir para esperar despliegue
         run: sleep 60
 
       - name: Ver pods
-        run: kubectl --kubeconfig=$HOME/.kube/config get pods
+        run: kubectl --kubeconfig=$HOME/.kube/config-remoto get pods
 
       - name: Ver servicios
-        run: kubectl --kubeconfig=$HOME/.kube/config get services
+        run: kubectl --kubeconfig=$HOME/.kube/config-remoto get services
