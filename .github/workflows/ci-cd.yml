@@ -84,7 +84,7 @@ jobs:
       - name: Crear kubeconfig
         run: |
           mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBE_CONFIG_DATA }}" > $HOME/.kube/config
+          printf "%s" "${{ secrets.KUBECONFIG_STAGING }}" > $HOME/.kube/config
           chmod 600 $HOME/.kube/config
         
       - name: Validar cluster
