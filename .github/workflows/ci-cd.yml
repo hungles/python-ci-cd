@@ -81,13 +81,9 @@ jobs:
         with:
           version: 'v1.28.0'
 
-      - name: Instalar kind
+      - name: Crear kubeconfig
         run: |
-            curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
-            chmod +x ./kind
-            sudo mv ./kind /usr/local/bin/kind
-            kind create cluster
-            kubectl get nodes
+          echo "${{ secrets.KUBE_CONFIG_DATA }}" > $HOME/.kube/config
         
       - name: Validar cluster
         run: kubectl get nodes
