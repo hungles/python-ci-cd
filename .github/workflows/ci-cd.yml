@@ -85,7 +85,7 @@ jobs:
         run: |
           mkdir -p $HOME/.kube
           printf "%s" "${{ secrets.KUBE_CONFIG_DATA }}" > $HOME/.kube/config-remoto
-          chmod 600 $HOME/.kube/config
+          chmod 600 $HOME/.kube/config-remoto
         
       - name: Validar cluster
         run: kubectl --kubeconfig=$HOME/.kube/config-remoto get nodes
