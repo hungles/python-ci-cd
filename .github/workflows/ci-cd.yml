@@ -84,16 +84,16 @@ jobs:
       - name: Crear kubeconfig
         run: |
           mkdir -p $HOME/.kube
-          printf "%s" "${{ secrets.KUBECONFIG_STAGING }}" > $HOME/.kube/config
+          printf "%s" "${{ secrets.KUBE_CONFIG_DATA }}" > $HOME/.kube/config-remoto
           chmod 600 $HOME/.kube/config
         
       - name: Validar cluster
-        run: kubectl --kubeconfig=$HOME/.kube/config get nodes
+        run: kubectl --kubeconfig=$HOME/.kube/config-remoto get nodes
 
       - name: Aplicar manifests
         run: |
-          kubectl --kubeconfig=$HOME/.kube/config apply -f k8s/staging/k8s-deployment.yml
-          kubectl --kubeconfig=$HOME/.kube/config apply -f k8s/staging/k8s-service.yml
+          kubectl --kubeconfig=$HOME/.kube/config-remoto apply -f k8s/staging/k8s-deployment.yml
+          kubectl --kubeconfig=$HOME/.kube/config apply-remoto -f k8s/staging/k8s-service.yml
       
       - name: Actualizar imagen en manifiesto
         run: |
