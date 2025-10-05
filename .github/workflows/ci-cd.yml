@@ -115,16 +115,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Configurar kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'v1.28.0'
-
       - name: Crear kubeconfig
         run: |
           mkdir -p $HOME/.kube
           printf "%s" "${{ secrets.KUBE_CONFIG_DATA }}" > $HOME/.kube/config
           chmod 600 $HOME/.kube/config
+
+      - name: Configurar kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.28.0'
         
       - name: Validar cluster
         run: kubectl get nodes
