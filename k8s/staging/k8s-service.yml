@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: python-ci-cd-service
+  name: stag-python-ci-cd-action-service
 spec:
   selector:
-    app: python-ci-cd
+    app: stag-python-ci-cd-action
   ports:
     - protocol: TCP
       port: 80
