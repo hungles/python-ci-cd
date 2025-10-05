@@ -1,4 +1,4 @@
-name: Python CI/CD
+name: Python CI/CD in GitHub Actions
 
 on:
   push:
@@ -69,7 +69,7 @@ jobs:
       - name: Subir imagen
         run: docker push hunglespro/python-ci-cd:staging-${{ github.sha }}
 
-  deploy-staging:
+  deploy-k8-staging:
     if: github.ref == 'refs/heads/staging'
     needs: docker-deploy-staging
     runs-on: ubuntu-latest
@@ -97,7 +97,46 @@ jobs:
       
       - name: Actualizar imagen en manifiesto
         run: |
-          kubectl --kubeconfig=$HOME/.kube/config-remoto set image deployment/python-ci-cd-deploy python-ci-cd=hunglespro/python-ci-cd:staging-${{ github.sha }}
+          kubectl set image deployment/stag-python-ci-cd-deploy python-ci-cd=hunglespro/python-ci-cd:staging-${{ github.sha }}
+
+      - name: Dormir para esperar despliegue
+        run: sleep 60
+
+      - name: Ver pods
+        run: kubectl get pods
+
+      - name: Ver servicios
+        run: kubectl get services
+
+  deploy-k8-master:
+    if: github.ref == 'refs/heads/master'
+    needs: docker-deploy-staging
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configurar kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.28.0'
+
+      - name: Crear kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG_DATA }}" > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+        
+      - name: Validar cluster
+        run: kubectl get nodes
+
+      - name: Aplicar manifests
+        run: |
+          kubectl apply -f k8s/prod/k8s-deployment.yml
+          kubectl apply -f k8s/prod/k8s-service.yml
+      
+      - name: Actualizar imagen en manifiesto
+        run: |
+          kubectl set image deployment/prod-python-ci-cd-deploy python-ci-cd=hunglespro/python-ci-cd:prod-${{ github.sha }}
 
       - name: Dormir para esperar despliegue
         run: sleep 60
