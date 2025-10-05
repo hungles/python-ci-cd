@@ -84,16 +84,16 @@ jobs:
       - name: Crear kubeconfig
         run: |
           mkdir -p $HOME/.kube
-          printf "%s" "${{ secrets.KUBE_CONFIG_DATA }}" > $HOME/.kube/config-remoto
-          chmod 600 $HOME/.kube/config-remoto
+          printf "%s" "${{ secrets.KUBE_CONFIG_DATA }}" > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
         
       - name: Validar cluster
-        run: kubectl --kubeconfig=$HOME/.kube/config-remoto get nodes
+        run: kubectl get nodes
 
       - name: Aplicar manifests
         run: |
-          kubectl --kubeconfig=$HOME/.kube/config-remoto apply -f k8s/staging/k8s-deployment.yml
-          kubectl --kubeconfig=$HOME/.kube/config-remoto apply -f k8s/staging/k8s-service.yml
+          kubectl apply -f k8s/staging/k8s-deployment.yml
+          kubectl apply -f k8s/staging/k8s-service.yml
       
       - name: Actualizar imagen en manifiesto
         run: |
@@ -118,7 +118,7 @@ jobs:
       - name: Crear kubeconfig
         run: |
           mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
+          printf "%s" "${{ secrets.KUBE_CONFIG_DATA }}" > $HOME/.kube/config
           chmod 600 $HOME/.kube/config
 
       - name: Configurar kubectl
@@ -142,7 +142,7 @@ jobs:
         run: sleep 60
 
       - name: Ver pods
-        run: kubectl --kubeconfig=$HOME/.kube/config-remoto get pods
+        run: kubectl get pods
 
       - name: Ver servicios
-        run: kubectl --kubeconfig=$HOME/.kube/config-remoto get services
+        run: kubectl get services
