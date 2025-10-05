@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stag-python-ci-cd-deploy
+  name: prod-python-ci-cd-deploy
   labels:
-    app: stag-python-ci-cd-action
+    app: prod-python-ci-cd-action
 spec:
   replicas: 2   # número de pods
   selector:
     matchLabels:
-      app: stag-python-ci-cd-action
+      app: prod-python-ci-cd-action
   template:
     metadata:
       labels:
-        app: stag-python-ci-cd-action
+        app: prod-python-ci-cd-action
     spec:
       containers:
-        - name: stag-python-ci-cd-action
+        - name: prod-python-ci-cd-action
           image: hunglespro/python-ci-cd:55917814347d9e92212e7536fa9a1833e11a8a3a
           ports:
             - containerPort: 5000
