@@ -131,8 +131,8 @@ jobs:
 
       - name: Aplicar manifests
         run: |
-          kubectl apply -f k8s/staging/k8s-deployment.yml
-          kubectl apply -f k8s/staging/k8s-service.yml
+          kubectl apply -f k8s/prod/k8s-deployment.yml
+          kubectl apply -f k8s/prod/k8s-service.yml
       
       - name: Actualizar imagen en manifiesto
         run: |
