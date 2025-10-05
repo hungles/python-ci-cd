@@ -110,7 +110,7 @@ jobs:
 
   deploy-k8-master:
     if: github.ref == 'refs/heads/master'
-    needs: docker-deploy-staging
+    needs: docker-deploy-master
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
