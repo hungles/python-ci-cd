@@ -97,7 +97,7 @@ jobs:
       
       - name: Actualizar imagen en manifiesto
         run: |
-          kubectl set image deployment/stag-python-ci-cd-deploy python-ci-cd=hunglespro/python-ci-cd:staging-${{ github.sha }}
+          kubectl set image deployment/stag-python-ci-cd-deploy stag-python-ci-cd-action=hunglespro/python-ci-cd:staging-${{ github.sha }}
 
       - name: Dormir para esperar despliegue
         run: sleep 60
@@ -136,7 +136,7 @@ jobs:
       
       - name: Actualizar imagen en manifiesto
         run: |
-          kubectl set image deployment/prod-python-ci-cd-deploy python-ci-cd=hunglespro/python-ci-cd:prod-${{ github.sha }}
+          kubectl set image deployment/prod-python-ci-cd-deploy prod-python-ci-cd-action=hunglespro/python-ci-cd:prod-${{ github.sha }}
 
       - name: Dormir para esperar despliegue
         run: sleep 60
