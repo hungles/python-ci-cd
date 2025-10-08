@@ -29,6 +29,17 @@ jobs:
       - name: Ejecutar tests
         run: pytest
 
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+        with:
+          args: >
+            -Dsonar.projectKey=hungles_python-ci-cd
+            -Dsonar.organization=hungles
+            -Dsonar.host.url=https://sonarcloud.io
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+
   docker-deploy-master:
     if: github.ref == 'refs/heads/master'
     needs: build-test
