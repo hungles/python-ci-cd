@@ -26,11 +26,16 @@ jobs:
       - name: Instalar dependencias
         run: pip install -r requirements.txt
 
+        
+
       - name: Ejecutar tests
-        run: pytest --cov=app --cov-report=xml:coverage.xml --cov-report=term-missing --cov-branch
+        run: pytest --cov=app --cov-report=xml:coverage.xml --cov-report=term-missing --rootdir=.
 
       - name: Verificar Archivos
         run: ls -la
+
+      - name: Verificar reporte de cobertura
+        run: grep "filename=" coverage.xml | head
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@e44258b109568baa0df60ed515909fc6c72cba92
