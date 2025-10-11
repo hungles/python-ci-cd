@@ -10,7 +10,7 @@ def home():
     return {"message": "Hello CI/CD with Python!"}
 
 # Run the application
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     app.run(host="0.0.0.0", port=5000)
 
 # Esto es un comentario que ira a staging
