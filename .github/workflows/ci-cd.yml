@@ -29,8 +29,8 @@ jobs:
       - name: Ejecutar tests
         run: pytest --cov=. --cov-report=xml --cov-report=term
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@e44258b109568baa0df60ed515909fc6c72cba92
+      - name: SonarCloud Scan and Wait
+        uses: SonarSource/sonarcloud-github-action@master
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
         env:
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
