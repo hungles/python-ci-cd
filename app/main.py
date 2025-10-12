@@ -9,6 +9,9 @@ app = Flask(__name__)
 def home():
     return {"message": "Hello CI/CD with Python!"}
 
+# Esto es un print de prueba
+print("Hola mundo")
+
 # Run the application
 if __name__ == "__main__":  # pragma: no cover
     app.run(host="0.0.0.0", port=5000)

@@ -29,26 +29,9 @@ jobs:
       - name: Ejecutar tests
         run: pytest --cov=. --cov-report=xml --cov-report=term
 
-      - name: Verificar Archivos
-        run: ls -la
-
-      - name: Verificar reporte de cobertura
-        run: grep "filename=" coverage.xml | head
-
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@e44258b109568baa0df60ed515909fc6c72cba92
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
-        with:
-          args: >
-            -Dsonar.projectKey=hungles_python-ci-cd
-            -Dsonar.organization=hungles
-            -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.sources=app
-            -Dsonar.exclusions=**/__pycache__/**,**/*.pyc,**/venv/**,**/.venv/**,**/k8s/**
-            -Dsonar.tests=test
-            -Dsonar.test.inclusions=**/test_*.py,**/*_test.py
-            -Dsonar.python.coverage.reportPaths=coverage.xml
-            -Dsonar.coverage.exclusions=**/test/**
         env:
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
 
