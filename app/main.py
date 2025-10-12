@@ -9,8 +9,8 @@ app = Flask(__name__)
 def home():
     return {"message": "Hello CI/CD with Python!"}
 
-# Esto es un print de prueba
-print("Hola mundo")
+def sumar(a, b):
+    return a + b
 
 # Run the application
 if __name__ == "__main__":  # pragma: no cover
