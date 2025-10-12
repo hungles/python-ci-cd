@@ -9,8 +9,9 @@ app = Flask(__name__)
 def home():
     return {"message": "Hello CI/CD with Python!"}
 
-def sumar(a, b):
-    return a + b
+@app.route("/users")
+def get_users():
+    return {"users": ["Alice", "Bob", "Charlie"]}
 
 # Run the application
 if __name__ == "__main__":  # pragma: no cover
