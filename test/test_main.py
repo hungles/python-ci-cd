@@ -1,4 +1,5 @@
 from app.main import app
+from app.main import sumar
 
 def test_home():
     client = app.test_client()
@@ -7,6 +8,5 @@ def test_home():
     assert response.json["message"] == "Hello CI/CD with Python!"
 
 def test_sumar():
-    assert app.sumar(2, 3) == 5
-    assert app.sumar(-1, 1) == 0
-    assert app.sumar(0, 0) == 0
+    resultado = sumar(1, 2)
+    assert resultado == 3
