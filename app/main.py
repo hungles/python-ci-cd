@@ -17,6 +17,20 @@ def get_users():
 def sumar(a, b):
     return str(a + b)
 
+@app.route("/subtract/<int:a>/<int:b>")
+def subtract(a, b):
+    return str(a - b)
+
+@app.route("/divide/<int:a>/<int:b>")
+def divide(a, b):
+    if b == 0:
+        return {"error": "Division by zero is not allowed"}, 400
+    return str(a / b)
+
+@app.route("/power/<int:a>/<int:b>")
+def power(a, b):
+    return str(a ** b)
+
 # Run the application
 if __name__ == "__main__":  # pragma: no cover
     app.run(host="0.0.0.0", port=5000)
