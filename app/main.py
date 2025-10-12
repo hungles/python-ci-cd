@@ -13,6 +13,10 @@ def home():
 def get_users():
     return {"users": ["Alice", "Bob", "Charlie"]}
 
+@app.route("/sum/<int:a>/<int:b>")
+def sumar(a, b):
+    return str(a + b)
+
 # Run the application
 if __name__ == "__main__":  # pragma: no cover
     app.run(host="0.0.0.0", port=5000)
