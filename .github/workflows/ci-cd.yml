@@ -115,7 +115,7 @@ jobs:
         run: kubectl get services
 
   deploy-k8-master:
-    if: github.ref == 'refs/heads/masters'
+    if: github.ref == 'refs/heads/master'
     needs: docker-deploy-master
     runs-on: ubuntu-latest
     steps:
