@@ -37,7 +37,7 @@ pytest
 3. Ejecuta el contenedor:
 
     ```bash
-    docker run -p 5000:5000 python-ci-cd-app
+    docker run -d -p 5000:5000 python-ci-cd-app
     ```
 
 ## CI/CD con GitHub Actions
