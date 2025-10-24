@@ -3,18 +3,30 @@ name: Python CI/CD in GitHub Actions
 on:
   push:
     branches:
-      - dev
-      - master
-      - staging
+      - 'feature/**'
+      - 'fix/**'
   pull_request:
     branches:
       - master
       - staging
-
+      - dev
+      
 jobs:
   build-test:
     runs-on: ubuntu-latest
     steps:
+      
+      - name: Verificar nombre de rama (feature/* o fix/* o push/*)
+        run: |
+          BRANCH_NAME="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          echo "Validando nombre de rama: $BRANCH_NAME"
+          if [[ ! "$BRANCH_NAME" =~ ^(feature|fix)\/[a-z0-9._-]+$ && ! "$BRANCH_NAME" =~ ^(dev|staging|master)$ ]]; then
+            echo "❌ Nombre de rama inválido: $BRANCH_NAME"
+            echo "Debe seguir el formato: feature/<nombre> o fix/<nombre> o push/<nombre>"
+            exit 1
+          fi
+          echo "✅ Nombre de rama válido."
+
       - name: Checkout código
         uses: actions/checkout@v3
 
