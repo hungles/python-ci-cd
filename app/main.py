@@ -31,9 +31,6 @@ def divide(a, b):
 def power(a, b):
     return str(a ** b)
 
-#Tengo que borrar esto luego xd
-asdasodasoid
-
 # Run the application
 if __name__ == "__main__":  # pragma: no cover
     app.run(host="0.0.0.0", port=5000)
