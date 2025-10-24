@@ -49,3 +49,5 @@ El flujo de trabajo se encuentra en `.github/workflows/ci-cd.yml`.
 ---
 
 ¡Contribuciones y sugerencias son bienvenidas!
+
+# Este cambio no debe ir a master
