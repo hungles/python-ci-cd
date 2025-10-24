@@ -84,6 +84,7 @@ jobs:
     if: github.ref == 'refs/heads/staging'
     needs: docker-deploy-staging
     runs-on: ubuntu-latest
+    environment: staging
     steps:
       - uses: actions/checkout@v3
 
