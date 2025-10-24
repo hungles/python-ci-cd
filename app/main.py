@@ -31,6 +31,17 @@ def divide(a, b):
 def power(a, b):
     return str(a ** b)
 
+# Static users data and route to view them
+    
+@app.route("/users/static")
+def users_static():
+    USERS = [
+        {"id": 1, "name": "Alice", "email": "alice@example.com"},
+        {"id": 2, "name": "Bob", "email": "bob@example.com"},
+        {"id": 3, "name": "Charlie", "email": "charlie@example.com"},
+    ]
+    return {"users": USERS}
+
 # Run the application
 if __name__ == "__main__":  # pragma: no cover
     app.run(host="0.0.0.0", port=5000)
