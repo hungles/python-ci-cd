@@ -29,6 +29,17 @@ jobs:
       - name: Ejecutar tests
         run: pytest
 
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@e44258b109568baa0df60ed515909fc6c72cba92
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+        with:
+          args: >
+            -Dsonar.projectKey=hungles_python-ci-cd
+            -Dsonar.organization=hungles
+            -Dsonar.host.url=https://sonarcloud.io
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+
   docker-deploy-master:
     if: github.ref == 'refs/heads/master'
     needs: build-test
@@ -109,8 +120,8 @@ jobs:
         run: kubectl get services
 
   deploy-k8-master:
-    if: github.ref == 'refs/heads/master'
-    needs: docker-deploy-staging
+    if: github.ref == 'refs/heads/masters'
+    needs: docker-deploy-master
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
