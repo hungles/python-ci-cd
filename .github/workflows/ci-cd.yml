@@ -17,13 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       
-      - name: Verificar nombre de rama (feature/* o fix/*)
+      - name: Verificar nombre de rama (feature/* o fix/* o push/*)
         run: |
           BRANCH_NAME="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
           echo "Validando nombre de rama: $BRANCH_NAME"
-          if [[ ! "$BRANCH_NAME" =~ ^(feature|fix)\/[a-z0-9._-]+$ ]]; then
+          if [[ ! "$BRANCH_NAME" =~ ^(feature|fix|push)\/[a-z0-9._-]+$ ]]; then
             echo "❌ Nombre de rama inválido: $BRANCH_NAME"
-            echo "Debe seguir el formato: feature/<nombre> o fix/<nombre>"
+            echo "Debe seguir el formato: feature/<nombre> o fix/<nombre> o push/<nombre>"
             exit 1
           fi
           echo "✅ Nombre de rama válido."
