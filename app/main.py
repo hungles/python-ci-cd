@@ -31,6 +31,8 @@ def divide(a, b):
 def power(a, b):
     return str(a ** b)
 
+# Esto va a fallar a los test de GitHub Actions
+asdasd
 # Run the application
 if __name__ == "__main__":  # pragma: no cover
     app.run(host="0.0.0.0", port=5000)
